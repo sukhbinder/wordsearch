@@ -12,14 +12,54 @@ CHARACTER(LEN=26) :: CHARS
 INTEGER :: IUSED
 LOGICAL :: LBOARD(COL,COL)
 data space/" "/
-data swords/"carpenter","school","anmol","book","milk","bat","cat","song", "people", "work"/
+data swords/"CARPENTER","SCHOOL","ANMOL","BOOK","MILK","BAT","CAT","SONG", "PEOPLE", "WORK"/
+
+contains
+
+function to_upper(strIn) result(strOut)
+! Adapted from http://www.star.le.ac.uk/~cgp/fortran.html (25 May 2012)
+! Original author: Clive Page
+
+
+
+character(len=*), intent(in) :: strIn
+character(len=len(strIn)) :: strOut
+integer :: i,j
+
+do i = 1, len(strIn)
+  j = iachar(strIn(i:i))
+  if (j>= iachar("a") .and. j<=iachar("z") ) then
+      strOut(i:i) = achar(iachar(strIn(i:i))-32)
+  else
+      strOut(i:i) = strIn(i:i)
+  end if
+end do
+
+end function to_upper
+
 END MODULE
  
+
 program words
 USE MODWORDS
 implicit none
-integer i
- 
+integer i, count, mincount
+
+! CHARACTER(len=255) :: cmd
+! CALL get_command(cmd)
+
+! Get command line words if supplied
+count = command_argument_count()
+! WRITE (*,*) count
+mincount = min(count, iwrd)
+DO i=1,mincount
+  CALL get_command_argument(i, TEMP )
+  IF (LEN_TRIM(TEMP) == 0) EXIT
+  swords(i) = to_upper(TEMP)
+  WRITE (*,*) TRIM(swords(i))
+  ! i = i+1
+END DO
+
 CALL INIT
 CALL SHOW
  
