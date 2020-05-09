@@ -1,7 +1,7 @@
 
 MODULE MODWORDS
-INTEGER, PARAMETER :: COL=8
-INTEGER, PARAMETER :: iwrd=8
+INTEGER, PARAMETER :: COL=12
+INTEGER, PARAMETER :: iwrd=10
 Character(len=1) SPACE
  
  
@@ -12,7 +12,7 @@ CHARACTER(LEN=26) :: CHARS
 INTEGER :: IUSED
 LOGICAL :: LBOARD(COL,COL)
 data space/" "/
-data swords/"bat","anmol","cat","song","carpenter","school","book","milk"/
+data swords/"carpenter","school","anmol","book","milk","bat","cat","song", "people", "work"/
 END MODULE
  
 program words
@@ -23,12 +23,15 @@ integer i
 CALL INIT
 CALL SHOW
  
-PRINT *, USED(1:IUSED-1)
+!PRINT *, USED(1:IUSED-1)
 end program
  
  
 SUBROUTINE SHOW
 USE MODWORDS
+
+WRITE(*,*)
+WRITE(*,*)
  
 DO I=1,COL
   DO J = 1,COL
@@ -36,8 +39,12 @@ DO I=1,COL
   END DO
    WRITE(*,*)
 END DO
- 
-WRITE(*,'(4(A14))') (SWORDS)
+
+WRITE(*,*)
+WRITE(*,*)
+WRITE(*,'(5(A14))') (SWORDS)
+WRITE(*,*)
+WRITE(*,*)
 !CALL SHOW2
 END 
  
@@ -126,7 +133,7 @@ DO I=1,iwrd
 !     print *, temp
     CALL FILLB(X,Y,WLEN,I,NUM)
       
-!    call show
+    ! call show
 !    print *, swords(i),i,num
 !    read *,a
   exit do2
