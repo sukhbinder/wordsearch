@@ -56,7 +56,7 @@ DO i=1,mincount
   CALL get_command_argument(i, TEMP )
   IF (LEN_TRIM(TEMP) == 0) EXIT
   swords(i) = to_upper(TEMP)
-  WRITE (*,*) TRIM(swords(i))
+  ! WRITE (*,*) TRIM(swords(i))
   ! i = i+1
 END DO
 
