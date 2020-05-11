@@ -40,6 +40,21 @@ end function to_upper
 END MODULE
  
 
+SUBROUTINE init_random_seed()
+  INTEGER :: i, n, clock
+  INTEGER, DIMENSION(:), ALLOCATABLE :: seed
+
+  CALL RANDOM_SEED(size = n)
+  ALLOCATE(seed(n))
+
+  CALL SYSTEM_CLOCK(COUNT=clock)
+
+  seed = clock + 37 * (/ (i - 1, i = 1, n) /)
+  CALL RANDOM_SEED(PUT = seed)
+
+  DEALLOCATE(seed)
+END SUBROUTINE
+
 program words
 USE MODWORDS
 implicit none
@@ -143,7 +158,7 @@ LOGICAL CHECKOK,SS,ISUSEDORNOT
 !Y   5  %  1
 !Y   6  7  8
 !
-CALL random_seed
+CALL init_random_seed()
  
 DO I=1,iwrd
  WLEN=LEN_TRIM(SWORDS(I))
